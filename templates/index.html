@@ -6,7 +6,7 @@
 {% block body %}
 <div class="content">
     {% if students|length < 1 %}
-        <h4 style="text-align: center">There are no tasks. Create one below!</h4>
+        <h4 style="text-align: center">There are no students. </h4>
     {% else %}
     <table>
         <tr>
@@ -24,7 +24,7 @@
                 <td width="20%">{{ student.lname }}</td>
                 <td width="10%">{{ student.score }}</td>
                
-                
+
                 <td width="20%">
                     <a href="/delete/{{student.id}}">Delete</a>
                     &nbsp;
