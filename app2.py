@@ -1,11 +1,12 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 app = Flask(__name__)
 
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://anju:anju@localhost:5432/flaskpg-db'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://anju:anju@localhost/students'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@localhost:5432/Students'
+
 db = SQLAlchemy(app)
 
 
@@ -15,13 +16,12 @@ class Student(db.Model):
     fname = db.Column(db.String(40))
     lname = db.Column(db.String(40))
     score = db.Column(db.Integer)
-    date_created = db.Column(db.DateTime, default=datetime.utcnow)
+    #date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __init__(self, fname, lname, score):
         self.fname = fname
         self.lname = lname
         self.score = score
-
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
@@ -38,8 +38,8 @@ def index():
         except Exception as e:
             print("Error while saving to DB." + str(e))
     else:
-        students = Student.query.order_by(Student.date_created).all()
-        #students = Student.query.order_by(Student.lname).all()
+        #students = Student.query.order_by(Student.date_created).all()
+        students = Student.query.order_by(Student.lname).all()
         return render_template('index.html', students=students)
     return render_template('index.html')
 
