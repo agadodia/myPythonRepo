@@ -11,23 +11,23 @@
     <table>
         <tr>
             <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Score</th>
-            <th>Created Date</th>
+            <th>Student Name</th>
+            <th>Course Name</th>
+            <th>Phone</th>
+            <th>Picture</th>
             <th>Actions</th>
         </tr>
         {% for student in students %}
             <tr>
-                <td width="10%">{{ student.id }}</td>
-                <td width="20%">{{ student.fname }}</td>
-                <td width="20%">{{ student.lname }}</td>
-                <td width="10%">{{ student.score }}</td>
-                <td width="20%">{{ student.date_created }}</td>
+                <td width="10%">{{ student.student_id }}</td>
+                <td width="20%">{{ student.student_name }}</td>
+                <td width="20%">{{ student.student_course }}</td>
+                <td width="10%">{{ student.student_phone }}</td>
+                <td width="20%">{{ student.student_picture }}</td>
                 <td width="20%">
-                    <a href="/delete/{{student.id}}">Delete</a>
+                    <a href="/delete/{{student.student_id}}">Delete</a>
                     &nbsp;
-                    <a href="/update/{{student.id}}">Update</a>
+                    <a href="/update/{{student.student_id}}">Update</a>
                 </td>
             </tr>
         {% endfor %}
@@ -37,9 +37,10 @@
         <tr>
             <div class="form">
                 <form action="/" method="POST">
-                    <label for="fname">First name: </label> <input type="text" id="fname" name="fname"><br><br>
-                    <label for="lname">Last name: </label> <input type="text" id="lname" name="lname"><br><br>
-                    <label for="score">SAT Score: </label> <input type="text" id="score" name="score"><br><br>
+                    <label for="student_name">Student name: </label> <input type="text" id="student_name" name="student_name"><br><br>
+                    <label for="student_course">Course name: </label> <input type="text" id="student_course" name="student_course"><br><br>
+                    <label for="student_phone">Phone: </label> <input type="text" id="student_phone" name="student_phone"><br><br>
+                    <label for="student_picture">Picture: </label> <input type="text" id="student_picture" name="student_picture"><br><br>
                     <button><a>Save</a></button>
                     <br>
                 </form>

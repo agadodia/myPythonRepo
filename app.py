@@ -8,28 +8,28 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://anju:anju@localhost/students'
 db = SQLAlchemy(app)
 
-
 class Student(db.Model):
     __tablename__ = 'students'
-    id = db.Column(db.Integer, primary_key=True)
-    fname = db.Column(db.String(40))
-    lname = db.Column(db.String(40))
-    score = db.Column(db.Integer)
-    date_created = db.Column(db.DateTime, default=datetime.utcnow)
-
-    def __init__(self, fname, lname, score):
-        self.fname = fname
-        self.lname = lname
-        self.score = score
-
+    student_id = db.Column(db.Integer, primary_key=True)
+    student_name = db.Column(db.String(50))
+    student_course = db.Column(db.String(50))
+    student_phone = db.Column(db.String(20))
+    student_picture = db.Column(db.String(200))
+    
+    def __init__(self, student_name, student_course, student_phone, student_picture):
+        self.student_name = student_name
+        self.student_course = student_course
+        self.student_phone = student_phone
+        self.student_picture = student_picture
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
     if request.method == 'POST':
-        fname = request.form['fname']
-        lname = request.form['lname']
-        score = request.form['score']
-        student = Student(fname, lname, score)
+        student_name = request.form['student_name']
+        student_course = request.form['student_course']
+        student_phone = request.form['student_phone']
+        student_picture = request.form['student_picture']
+        student = Student(student_name, student_course, student_phone , student_picture)
 
         try:
             db.session.add(student)
@@ -38,8 +38,8 @@ def index():
         except Exception as e:
             print("Error while saving to DB." + str(e))
     else:
-        students = Student.query.order_by(Student.date_created).all()
-        #students = Student.query.order_by(Student.lname).all()
+        #students = Student.query.order_by(Student.date_created).all()
+        students = Student.query.order_by(Student.student_id).all()
         return render_template('index.html', students=students)
     return render_template('index.html')
 
@@ -62,11 +62,11 @@ def update(student_id):
     student = Student.query.get_or_404(student_id)
 
     if request.method == 'POST':
-        student.id = request.form['id']
-        student.fname = request.form['fname']
-        student.lname = request.form['lname']
-        student.score = request.form['score']
-        student = Student(student.fname, student.lname, student.score)
+        student.student_name = request.form['student_name']
+        student.student_course = request.form['student_course']
+        student.student_phone = request.form['student_phone']
+        student.student_picture = request.form['student_picture']
+        student = Student(student.student_name, student.student_course, student.student_phone, student.student_picture)
 
         try:
             db.session.commit()

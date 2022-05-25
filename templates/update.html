@@ -9,11 +9,12 @@
     <h1 style="text-align: center">Update Student Details</h1>
 
     <div class="form">
-        <form action="/update/{{student.id}}" method="POST">
-            <label for="id">Student ID: </label> <input type="text" id="id" name="id" value="{{student.id}}"><br><br>
-            <label for="fname">First name: </label> <input type="text" id="fname" name="fname" value="{{student.fname}}"><br><br>
-            <label for="lname">Last name: </label> <input type="text" id="lname" name="lname" value="{{student.lname}}"><br><br>
-            <label for="score">SAT Score: </label> <input type="text" id="score" name="score" value="{{student.score}}"><br><br>
+        <form action="/update/{{student.student_id}}" method="POST">
+            <label for="student_id">Student ID: </label> <input type="text" id="id" name="id" value="{{student.student_id}}"><br><br>
+            <label for="student_name">Student name: </label> <input type="text" id="student_name" name="student_name" value="{{student.student_name}}"><br><br>
+            <label for="student_course">Course name: </label> <input type="text" id="student_course" name="student_course" value="{{student.student_course}}"><br><br>
+            <label for="student_phone">Phone: </label> <input type="text" id="student_phone" name="student_phone" value="{{student.student_phone}}"><br><br>
+            <label for="student_picture">Phone: </label> <input type="text" id="student_picture" name="student_picture" value="{{student.student_picture}}"><br><br>
             <input type="submit" value="Update">
         </form>
     </div>
