@@ -36,11 +36,12 @@
     <table>
         <tr>
             <div class="form">
-                <form action="/" method="POST">
+                <form action="/" enctype="multipart/form-data" method="POST">
                     <label for="student_name">Student name: </label> <input type="text" id="student_name" name="student_name"><br><br>
                     <label for="student_course">Course name: </label> <input type="text" id="student_course" name="student_course"><br><br>
                     <label for="student_phone">Phone: </label> <input type="text" id="student_phone" name="student_phone"><br><br>
                     <label for="student_picture">Picture: </label> <input type="text" id="student_picture" name="student_picture"><br><br>
+                    <label for="student_img">Image Upload</label> <input type="file" name="student_img"><br><br>
                     <button><a>Save</a></button>
                     <br>
                 </form>

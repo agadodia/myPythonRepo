@@ -1,8 +1,18 @@
+import os
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+
+UPLOAD_FOLDER = 'static/uploads'
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://anju:anju@localhost:5432/flaskpg-db'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://anju:anju@localhost/students'
@@ -30,8 +40,18 @@ def index():
         student_phone = request.form['student_phone']
         student_picture = request.form['student_picture']
         student = Student(student_name, student_course, student_phone , student_picture)
-
+        mypic = request.files['student_img']
+                
+        if not mypic:
+            
+            return "No Picture uploaded", 400
+        filename = secure_filename(mypic.filename)
         try:
+            mypic.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        except:
+            return redirect('/')
+        try:
+
             db.session.add(student)
             db.session.commit()
             return redirect('/')
